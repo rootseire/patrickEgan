@@ -4,6 +4,7 @@
     <title>Lisgoold to Chicago Storymap.js | CARTO</title>
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
+<script type="module" src="apiKeys.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700|Open+Sans:300,400,600" rel="stylesheet">
     <!-- Include Leaflet -->
     <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script>
@@ -208,7 +209,10 @@ Your browser does not support the video tag.
       </div>
     </aside> -->
   </div><!--end map wrapper -->
+
       <script>
+      var token = config.MY_API_TOKEN;
+      var key = config.SECRET_API_KEY;
 
         // set map with initial zoom and coodinates view
           //let map = L.map($(".storymap-map")[0], { zoomControl: false }).setView([30, 0], 3);
@@ -249,7 +253,7 @@ Your browser does not support the video tag.
         // set CARTO client
 
         const client = new carto.Client({
-          apiKey: 'secrets.API_KEY',
+          apiKey: 'token',
           username: 'pategan'
         });
 
