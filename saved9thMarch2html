@@ -1,0 +1,38 @@
+const mySections = document.querySelectorAll('section');
+
+//var thisSceneVar = mySections;
+observer = new IntersectionObserver(entries => {
+  let observerConfig = {
+//root: null,
+rootMargin: '-750px',
+//threshold: 0.5
+};
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) {
+      return
+    }else if(entry.boundingClientRect.top<300) {
+
+      var checks = entry;
+
+      console.log('in view');
+      const targets = entries[0].target;
+  var targeted = targets.id;
+    //  console.log(target);
+    //const targetToShow =   targeted;
+  console.log('entry:',  entry);
+
+
+source.setQuery("SELECT * FROM patrick_egan_encoded_csv_1 WHERE scene = '" + targeted + "'");
+} //else {
+    //  console.log('out of view');
+    //  source.setQuery("SELECT * FROM patrick_egan_encoded_csv_1 ");
+    //  source.setQuery(`
+    //    SELECT * FROM patrick_egan_encoded_csv_1
+//  `);
+  //  }
+  });
+});
+
+mySections.forEach(section => {
+  observer.observe(section);
+});

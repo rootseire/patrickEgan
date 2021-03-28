@@ -1,0 +1,135 @@
+// create CARTO layer from source and style variables
+const cartoLayer = new carto.layer.Layer(source, style, {
+  featureOverColumns: (['scene', 'location_address','landmark_not_on_gis'])
+});
+const lisgooldLayer = new carto.layer.Layer(sourceLisgoold, style, {
+  featureOverColumns: (['scene', 'location_address','landmark_not_on_gis'])
+});
+// add CARTO layer to the client
+client.addLayers([cartoLayer, lisgooldLayer]);
+// define layers that will be used on the map
+var layers = {
+            basemap: {
+                layer: L.tileLayer('https://cartocdn_{s}.global.ssl.fastly.net/base-antique/{z}/{x}/{y}.png')
+            },
+            cartoLayer: {
+                layer: client.getLeafletLayer()
+            },
+            lisgooldLayer: {
+               layer:  client.getLeafletLayer()
+            },
+            layer4: {  //https://github.com/wbkd/leaflet-swoopy
+             layer: L.swoopyArrow([53.4120954,-3.056141], [56.9900112,-31.7339369], {
+               text: 'All aboard for Quebec!',
+               weight: 10,
+               opacity: 0.2,
+               fontSize: 20,
+               factor: -0.9,
+               color: "#bb0017",
+               iconAnchor: [0, 0],
+               iconSize: [200,150],
+               textClassName: "arrow-label"
+           })
+           },
+            layer5: {  //https://github.com/wbkd/leaflet-swoopy
+            layer: L.swoopyArrow([54.5945837, -32.0337078], [54.5945837, -39.0337078], {
+               text: 'worlds',
+               weight: 2,
+               opacity: 0.7,
+               fontSize: 20,
+               color: "#ffea00",
+               iconAnchor: [0, 0]
+           })
+           },
+};
+// define scenes
+let scenes = {
+            overview: { lat: 51.9735556, lng: -152255582, zoom: 4, layers: [], name: "Home" },
+            Home: { lat: 51.9735556, lng: -152255582, zoom: 4, layers: ['basemap','cartoLayer'], name: "Home" },
+            Lisgoold: { lat: 51.9735556, lng: -8.2255582, zoom: 10, layers: ['basemap','lisgooldLayer'], name: "Lisgoold" },
+            Salesman: { lat: 52.484837, lng: -8.2613306, zoom: 7, layers: ['basemap','cartoLayer'], name: "Salesman" },
+            England: { lat: 52.5945837, lng:-2.0337078,  zoom: 9, layers: ['basemap','cartoLayer'], name: "England" },
+            SalesmanReturn: {lat: 51.9735556, lng: -8.2255582,  zoom: 10, layers: ['basemap','cartoLayer'], name: "SalesmanReturn" },
+            USJourney: {lat: 52.5945837, lng:-30.0337078,  zoom: 5, layers: ['basemap','cartoLayer'], name: "USJourney" },
+            WorkCanada: {lat: 48.7321991, lng:-79.7597816,  zoom: 4, layers: ['basemap','cartoLayer'], name: "WorkCanada" },
+            TravelToUS: {lat: 47.0151458, lng:-94.7614612,  zoom: 6, layers: ['basemap','cartoLayer'], name: "TravelToUS" },
+            WorkUS: {lat: 41.8333925, lng:-88.0121484,  zoom: 10, layers: ['basemap','cartoLayer'], name: "WorkUS" },
+            Marriage: {lat: 41.8270076, lng:-87.6455073,  zoom: 14, layers: ['basemap','cartoLayer'], name: "Marriage" },
+            LifeInChicago: {lat: 41.8333925, lng:-88.0121484,  zoom: 11, layers: ['basemap','cartoLayer'], name: "LifeInChicago" },
+            FamilyTragedy: {lat: 41.9028448, lng:	-87.6857373,  zoom: 11, layers: ['basemap','cartoLayer'], name: "FamilyTragedy"},
+            CrossingAtlantic: {lat: 52.5945837, lng:-30.0337078,  zoom: 5, layers: ['basemap','cartoLayer', 'layer4'], name: "CrossingAtlantic" },
+            FamilyGraves: {lat: 41.8333925, lng:-88.0121484,  zoom: 11, layers: ['basemap','cartoLayer'], name: "FamilyGraves"},
+            StillInChicago: {lat: 41.8333925, lng:-88.0121484,  zoom: 11, layers: ['basemap','cartoLayer'], name: "StillInChicago"}
+};
+// initializaze storymap
+$('#storymap').storymap({
+            scenes: scenes,
+            layers: layers,
+            baselayer: layers.basemap,
+            legend: true,
+            loader: true,
+            flyto: false,
+            credits: "Built with Carto, StoryMap and Leaflet, 2021",
+            scalebar: true,
+            scrolldown: true,
+            progressline: true,
+            navwidget: true,
+createMap: function () {
+    let map2 = L.map($(".storymap-map")[0], { zoomControl: false }).setView([30, 0], 3);
+    const popup = L.popup({closeButton: true});
+cartoLayer.on('featureClicked', featureEvent => {
+            var popup = L.popup()
+            .setLatLng(featureEvent.latLng)
+            let content = '';
+              if (featureEvent.data.scene) {
+                 content += '<p>';
+                 content += featureEvent.data.scene;
+                 content += '</p><p>';
+                 content += featureEvent.data.landmark_not_on_gis;
+                 content += '</p><p>';
+                 content += featureEvent.data.location_address;
+               }
+             var line = L.polyline([
+               [51.9674951,	-8.2364881],
+               [52.2662119,	-8.2786411],
+               [52.3745288,	-7.9340018],
+               [52.6801578,	-7.8111139],
+               [52.8555496,	-7.5954776],
+               [52.9628186,	-7.7504342],
+               [52.9391769,	-7.6398531],
+               [52.9942281,	-7.4757189],
+               [53.0426599,	-7.3258656],
+               [53.1674088,	-6.9202995],
+               [53.1443264,	-6.8470534],
+               [53.1062715,	-6.0733409],
+               [53.3242381,	-6.3857864],
+               [53.3288689,	-6.2392783],
+               [53.2650105,	-6.1237033],
+               [53.1970187,	-6.1308245],
+               [52.9825088,	-6.0602595],
+               [52.7950711,	-6.1748422],
+               [52.8581642,	-6.2179385],
+               [52.8824992,	-6.2431992],
+               [52.6757346,	-6.303057],
+               [52.5058482,	-6.5894459],
+               [52.5031391,	-6.5624348],
+               [52.3945888,	-6.9615096],
+               [52.2474998,	-7.1480493],
+               [52.0914087,	-7.6386446],
+               [51.9534288,	-7.8755096],
+               [51.9674951,	-8.2364881]
+             ]);
+  map2.addLayer(line);
+  var animatedMarker = L.animatedMarker(line.getLatLngs());
+  map2.addLayer(animatedMarker);
+  // add values to Leafet popup element
+  popup.setContent(content).openOn(map2);
+});
+  // add basemap
+  this.baselayer.layer.addTo(map2);
+  // add carto layer
+  layers.cartoLayer.layer.addTo(map2);
+  //layers.lisgooldLayer.layer.addTo(map2);
+  return map2;
+}
+});

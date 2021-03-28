@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Lisgoold to Chicago Storymap.js | CARTO</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700|Open+Sans:300,400,600" rel="stylesheet">
+    <!-- Include Leaflet -->
+    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script>
+    <link href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" rel="stylesheet">
+    <!-- Include CARTO.js -->
+    <script src="https://libs.cartocdn.com/carto.js/v4.2.0/carto.min.js"></script>
+    <!--jquery-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!--boostrap-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!--leaflet.ajax for asynchronously adding geojson data-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.min.js"></script>
+    <!--story map plugin-->
+    <script src="https://cdn.rawgit.com/jakobzhao/storymap/master/dist/storymap.2.3.js"></script>
+
+    <link href="https://carto.com/developers/carto-js/examples/maps/public/style.css" rel="stylesheet">
+    <!--add required stylesheets-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <!--animation-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <!--Google Font-->
+    <link href="https://fonts.googleapis.com/css?family=Cairo" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/jakobzhao/storymap/master/dist/storymap.2.3.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.13/leaflet.draw.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.13/leaflet.draw.css" />
+ <script src="Leaflet.SwoopyArrow-customized.js"></script>
+ <script src="AnimatedMarker.js"></script>
+
+<style type="text/css">
+h1{padding-top:100px;}
+/*.leaflet-popup-pane, .leaflet-popup {
+  z-index: 1000 !important;
+}
+/*.storymap-map{z-index:-1;}*/
+/*.col-sm-6{z-index:-1;}*/
+* {
+       box-sizing: border-box;
+     }
+     body, *{ margin: 0; padding: 0; }
+     #map {
+       position: absolute;
+       height: 100%;
+       width: 100%;
+       z-index: 0;
+     }
+     .map-wrapper {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+aside .toolbox{
+  z-index:6000!important;
+}
+
+
+</style>
+  </head>
+  <body>
+    <div id="map-wrapper">
+    <div id="map"></div>
+    <div id="storymap" class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6 col-md-8 storymap-map"></div>
+            <div class="col-sm-6 col-md-4 storymap-story">
+              <section data-scene="overview" data-background="video/Cork1902.mp4">
+                           <div class="fullscreen text-center">
+
+                               <h1 class="display-4 d-flex justify-content-center">Patrick Egan</h1>
+
+
+                               <small class="d-flex justify-content-center" style="color: rgba(255,255,255,0.95)">This story map
+                                   illustrates the life of Patrick Egan using a storytelling structure.
+                               </small>
+                           </div>
+                       </section>
+                <section data-scene="Home" id="Home">
+                    <h1>Lisgoold to Chicago</h1>
+
+                    <p>
+                    From the diary of my Great-grand Uncle, Patrick Egan. 1880-1921
+                    </p>
+                </section>
+                <section data-scene="Lisgoold" id="Lisgoold">
+                  <img src="images/Mogeely.jpg" width="550px;"/>
+                    <h1>Growing up in Lisgoold, 1880</h1><span id="Lisgoold"></span>
+
+                    <p>
+                      Patrick Egan grew up as the 2nd of 4 children in the townland of Lisgoold, 5km? north of Midleton in East Cork. At the time, there were 6 blacksmith in Lisgoold. This was an agricultural area and the farmers were constantly repairing their ploughs and harrows. The Egan family were harnessmakers, and Patrick's brother Thomas stepped into the family business.
+                    </p>
+                </section>
+                <section data-scene="Salesman" id="Salesman">
+                    <h1>A Salesman on his Bike</h1><span id="Salesman"></span>
+
+                    <p>
+                        By his early twenties, Patrick was working as a travelling salesman. He diligently recorded all the hotels and bars he stayed in all over the country. He travelled by bicycle all over the country. One day, he traveled 425 miles from Gorey to Midleton. He must have wanted to get home.
+                    </p>
+                </section>
+                <section data-scene="England" id="England">
+                    <h1>England</h1><span id="England"></span>
+
+                    <p>
+                    Patrick was employed by S. Price, on Tantara St in Walsall, England. We don't know if he visited, but he certainly did a lot of traveling for them.
+                  </p>
+                </section>
+                <section data-scene="SalesmanReturn" id="SalesmanReturn">
+                    <h1>Salesman Returns to Ireland</h1><span id="SalesmanReturn"></span>
+
+                    <p>
+                        We do know that by 1906 he was back home in Lisgoold and planning to emigrate. Patrick was only 26 years old.
+                    </p>
+                </section>
+                <section data-scene="USJourney" id="USJourney">
+                    <h1>Canada Journey</h1><span id="USJourney"></span>
+
+                    <p>
+                      On September 5, 1906 Patrick left Lisgoold and traveled from Midleton to start his journey. Patrick took meticulous notes in his journal. In Cork, they weighed him at 170 lbs. He traveled Dublin by train, and on to Liverpool by steamship, arriving at 6 am in the morning.
+                    </p>
+                </section>
+                <section data-scene="CrossingAtlantic" id="CrossingAtlantic">
+
+                    <h1>Crossing the Atlantic</h1><span id="CrossingAtlantic"></span>
+<!-- <img src="images/EmpressOfBritain.jpg" width="500px" caption="The Empress of Britain" /> -->
+<video width="550" height="340" controls  autoplay>
+  <source src="video/EmpressOfBritain.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
+
+                    <p>The next morning at 11am, Patrick boarded the Empress of Britain from the Sandon Dock in Liverpool. He took the ships coordinates at he crossed the Atlantic. They took a northern route.
+                    </p>
+                </section>
+
+                <section data-scene="WorkCanada">
+                    <h1>Heading Out West to Winnepeg</h1><span id="WorkCanada"></span>
+
+                    <p>
+                      All we knew in our family was that Patrick emigrated to Chicago from Cork. We had NO idea he spent a winter in Winnipeg first. Patrick arrived in Winnipeg on Sept 17, 1906. He weighed 163 lbs.
+
+                    </p>
+                </section>
+                <section data-scene="TravelToUS" id="TravelToUS">
+                    <h1>Heading to Chicago</h1><span id="TravelToUS"></span>
+
+                    <p>
+                        On May 29, 1907 Patrick finally left Winnipeg and headed to Chicago by train. His journal documents each town the train stopped in. (map to list each town and show the route. Picture to include the a picture of steam train)
+                    </p>
+                </section>
+                <section data-scene="WorkUS" id="WorkUS">
+                    <h1>The First Egan in Chicago</h1><span id="WorkUS"></span>
+
+                    <p>
+                        Patrick had work lined up, and started the next day in Hess & Hopkins saddlery in Chicago. At this time, Chicago was at the heart of America's meatpacking industry. There was a lot of leather in Chicago. Patrick's Grandfather Thomas, a labourer, would have been proud to see him making saddles in the big smoke.
+                    </p>
+                </section>
+                <section data-scene="Marriage" id="Marriage">
+                    <h1>Getting Setup in Chicago</h1><span id="Marriage"></span>
+
+                    <p>
+                        Patrick got his start in the saddlery shops, moving on to work for Otarmyer & Co and then the Imperial Leather Mfg. By 1908 he had begun working for the People's Gas Light and Coke Company. We don't know when for sure, but his sister Margaret joined him in Chicago and had left Lisgoold by 1911. At the age of 32, Patrick Egan marries Johannah Genevieve McKain in the Nativity Church in downtown Chicago on February 24, 1914.
+                        Nativity Church
+                    </p>
+                </section>
+                <section data-scene="LifeInChicago" id="LifeInChicago">
+                    <h1>Life in Chicago</h1><span id="LifeInChicago"></span>
+
+                    <p>
+                        Patrick got his start in the saddlery shops, moving on to work for Otarmyer & Co and then the Imperial Leather Mfg. By 1908 he had begun working for the People's Gas Light and Coke Company. We don't know when for sure, but his sister Margaret joined him in Chicago and had left Lisgoold by 1911. At the age of 32, Patrick Egan marries Johannah Genevieve McKain in the Nativity Church in downtown Chicago on February 24, 1914.
+                    </p>
+                </section>
+                <section data-scene="FamilyTragedy" id="FamilyTragedy">
+                    <h1>Family Tragedy</h1><span id="FamilyTragedy"></span>
+
+                    <p>
+                      Mrs J. G. Egan entered St. Mary's Hospital at 10pm Thursday Jan 11th, 1917. She got sick at 11:30pm and at 2:45 am on Jan 12th, Rita Egan was born. On Thursday Jan 18th, Johanna passed away.
+                    </p>
+                </section>
+                <section data-scene="FamilyGraves" id="FamilyGraves">
+                    <h1>Family Graves</h1><span id="FamilyGraves"></span>
+                    <p>
+                      Johnanna was buried at her family plot in Calvary cemetary on Jan 22nd, 1917. Patrick took Rita from the Hospital on Jan 23rd to Mrs Schoorder - likely a wet nurse. But on March 1st, 1917, Rita died. She was buried two days later in the same grave with her mother.
+                    </p>
+                </section>
+                <section data-scene="StillInChicago" id="StillInChicago">
+                    <h1>Still in Chicago</h1><span id="StillInChicago"></span>
+                    <p>
+                      Patrick died on July 14, 1921, a month shy of his 40th birthday. His cause of death was, "Result of Appendectomy". He was buried in the Mount Carmel Catholic Cemetery in a plot. His sister's family, the Coogan's, would later be buried there as well. Margaret Coogan lived in Chicago until her death in 1960, and her children's family and subsequent generations of Egan emigrants are still there to this day.
+                    </p>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!--
+    <aside class="toolbox" style="z-index:50000;">
+      <div class="box">
+        <header>
+          <h1>Storytelling map</h1>
+          <button class="github-logo js-source-link"></button>
+        </header>
+        <div>
+          <p class="description open-sans">Storytelling map using Storymap.js and CARTO.js.</p>
+        </div>
+        <footer class="js-footer"></footer>
+      </div>
+    </aside> -->
+  </div><!--end map wrapper -->
+      <script>
+      let map2 = L.map($(".storymap-map")[0], { zoomControl: false }).setView([30, 0], 3);
+        // set CARTO client
+        const client = new carto.Client({
+          apiKey: 'dba521f575e48aae32bf83b9fd577458040053b0',
+          username: 'pategan'
+        });
+        const source = new carto.source.SQL(`
+            SELECT * FROM patrick_egan_encoded_csv_1
+        `);
+        const sourceLisgoold = new carto.source.SQL(`
+            SELECT * FROM patrick_egan_encoded_csv_1
+            WHERE scene='Lisgoold'
+        `);
+
+
+        // define CartoCSS code to style data on map
+        const style = new carto.style.CartoCSS(`
+          #layer{
+              marker-fill: #336699;
+              marker-allow-overlap: false;
+          }
+          #layer
+            #layer[scene = "overview"]{
+                marker-fill: #fbb4ae;
+                marker-allow-overlap: false;
+            }
+            #layer[scene = "Lisgoold"]{
+              marker-width: 20;
+                marker-fill: #fbb4ae;
+                marker-allow-overlap: false;
+            }
+            #layer[scene = "Salesman"]{
+                marker-fill: #b3cde3;
+                marker-allow-overlap: false;
+            }
+            #layer[scene = "England"]{
+                marker-fill: #ccebc5;
+                marker-allow-overlap: false;
+            }
+            #layer[scene = "SalesmanReturn"]{
+                marker-fill: #333333;
+                marker-allow-overlap: false;
+            }
+            #layer[scene = "USJourney"]{
+                marker-fill: #ffffff;
+                marker-allow-overlap: false;
+            }
+            #layer[scene = "WorkCanada"]{
+                marker-fill: #336699;
+                marker-allow-overlap: false;
+            }
+            #layer[scene = "LifeInChicago"]{
+                marker-fill: #ff0000;
+                marker-allow-overlap: false;
+            }
+            #layer[scene = "WorkUS"]{
+                marker-fill: #fbfbfb;
+                marker-allow-overlap: false;
+            }
+            #layer[scene = "TravelToUs"]{
+                marker-fill: #fafafa;
+                marker-allow-overlap: false;
+            }
+            #layer[scene = "FamilyTragedy"]{
+                marker-fill: #ccc333;
+                marker-allow-overlap: false;
+            }
+
+        `);
+
+        const style2 = new carto.style.CartoCSS(`
+          #layer{
+              marker-fill: #336699;
+              marker-allow-overlap: false;
+          }`);
+  // create CARTO layer from source and style variables
+const cartoLayer = new carto.layer.Layer(source, style2, {
+  featureOverColumns: (['scene', 'location_address','landmark_not_on_gis'])
+});
+
+const lisgooldLayer = new carto.layer.Layer(sourceLisgoold, style, {
+  featureOverColumns: (['scene', 'location_address','landmark_not_on_gis'])
+});
+
+var popup3 = L.popup()
+  .setLatLng([51.9674951,	-8.2364881])
+  .setContent('<p>Patrick Egan was born here on 24th August, 1880!<br />This is a nice popup.</p>')
+  .openOn(map2);
+
+  var fb_symbol = L.geoJson.ajax('PE.geojson', {
+          pointToLayer: function (feature, latlng) {
+              return L.marker(latlng, {bounceOnAdd: true,  opacity: 0.8, bounceOnAddOptions: {duration: 200, height: window.innerHeight, delay:delay}, icon: L.divIcon({className: 'fa fa-facebook fa-stack-2x facebook-color'})});
+          },
+          onEachFeature: function (feature, layer) {
+              layer.bindTooltip('<div class="tooltipdiv redspan">' + '<img src="' +  + '"/>' + "   " +'<a>'+  + '</a>' + "   " + '<br/>'+  + '<br/>'+ " <br/>" +  + '</div>', {sticky: false, className: "feature-label",permanent: false});
+          }
+      });
+
+
+//var layerGroup = L.layerGroup(lisgooldLayer);
+//console.log(cartoLayer);
+    // add CARTO layer to the client
+    client.addLayers([cartoLayer, lisgooldLayer]);
+client.getLeafletLayer().addTo(map2);
+// define layers that will be used on the map
+var layers = {
+            basemap: {
+                layer: L.tileLayer('https://cartocdn_{s}.global.ssl.fastly.net/base-antique/{z}/{x}/{y}.png')
+            },
+
+            lisgooldLayer: {
+              layer:  client.getLeafletLayer()
+            },
+            cartoLayer: {
+                layer:  client.getLeafletLayer()
+            },
+
+            layer4: {  //https://github.com/wbkd/leaflet-swoopy
+             layer: L.swoopyArrow([53.4120954,-3.056141], [56.9900112,-31.7339369], {
+               text: 'All aboard for Quebec!',
+               weight: 10,
+               opacity: 0.2,
+               fontSize: 20,
+               factor: -0.9,
+               color: "#bb0017",
+               iconAnchor: [0, 0],
+               iconSize: [200,150],
+               textClassName: "arrow-label"
+           })
+           },
+            layer5: {  //https://github.com/wbkd/leaflet-swoopy
+            layer: L.swoopyArrow([54.5945837, -32.0337078], [54.5945837, -39.0337078], {
+               text: 'worlds',
+               weight: 2,
+               opacity: 0.7,
+               fontSize: 20,
+               color: "#ffea00",
+               iconAnchor: [0, 0]
+           })
+           },
+};
+// define scenes
+let scenes = {
+            overview: { lat: 51.9735556, lng: -152255582, zoom: 4, layers: [], name: "Home" },
+            Home: { lat: 51.9735556, lng: -152255582, zoom: 4, layers: ['basemap'], name: "Home" },
+            Lisgoold: { lat: 51.9735556, lng: -8.2255582, zoom: 10, layers: ['basemap','lisgooldLayer'], name: "Lisgoold" },
+            Salesman: { lat: 52.484837, lng: -8.2613306, zoom: 7, layers: ['basemap','cartoLayers'], name: "Salesman" },
+            England: { lat: 52.5945837, lng:-2.0337078,  zoom: 9, layers: ['basemap','cartoLayer'], name: "England" },
+            SalesmanReturn: {lat: 51.9735556, lng: -8.2255582,  zoom: 10, layers: ['basemap','cartoLayer'], name: "SalesmanReturn" },
+            USJourney: {lat: 52.5945837, lng:-30.0337078,  zoom: 5, layers: ['basemap','cartoLayer'], name: "USJourney" },
+            WorkCanada: {lat: 48.7321991, lng:-79.7597816,  zoom: 4, layers: ['basemap','cartoLayer'], name: "WorkCanada" },
+            TravelToUS: {lat: 47.0151458, lng:-94.7614612,  zoom: 6, layers: ['basemap','cartoLayer'], name: "TravelToUS" },
+            WorkUS: {lat: 41.8333925, lng:-88.0121484,  zoom: 10, layers: ['basemap','cartoLayer'], name: "WorkUS" },
+            Marriage: {lat: 41.8270076, lng:-87.6455073,  zoom: 14, layers: ['basemap','cartoLayer'], name: "Marriage" },
+            LifeInChicago: {lat: 41.8333925, lng:-88.0121484,  zoom: 11, layers: ['basemap','cartoLayer'], name: "LifeInChicago" },
+            FamilyTragedy: {lat: 41.9028448, lng:	-87.6857373,  zoom: 11, layers: ['basemap','cartoLayer'], name: "FamilyTragedy"},
+            CrossingAtlantic: {lat: 52.5945837, lng:-30.0337078,  zoom: 5, layers: ['basemap','cartoLayer', 'layer4'], name: "CrossingAtlantic" },
+            FamilyGraves: {lat: 41.8333925, lng:-88.0121484,  zoom: 11, layers: ['basemap','cartoLayer'], name: "FamilyGraves"},
+            StillInChicago: {lat: 41.8333925, lng:-88.0121484,  zoom: 11, layers: ['basemap','cartoLayer'], name: "StillInChicago"}
+};
+
+// initializaze storymap
+$('#storymap').storymap({
+            scenes: scenes,
+            layers: layers,
+            baselayer: layers.basemap,
+            legend: true,
+            loader: true,
+            flyto: false,
+            credits: "Built with Carto, StoryMap and Leaflet, 2021",
+            scalebar: true,
+            scrolldown: true,
+            progressline: true,
+            navwidget: true,
+createMap: function () {
+
+    const popup = L.popup({closeButton: true});
+cartoLayer.on('featureClicked', featureEvent => {
+            var popup = L.popup()
+            .setLatLng(featureEvent.latLng)
+            let content = '';
+              if (featureEvent.data.scene) {
+                 content += '<p>';
+                 content += featureEvent.data.scene;
+                 content += '</p><p>';
+                 content += featureEvent.data.landmark_not_on_gis;
+                 content += '</p><p>';
+                 content += featureEvent.data.location_address;
+               }
+             var line = L.polyline([
+               [51.9674951,	-8.2364881],
+               [52.2662119,	-8.2786411],
+               [52.3745288,	-7.9340018],
+               [52.6801578,	-7.8111139],
+               [52.8555496,	-7.5954776],
+               [52.9628186,	-7.7504342],
+               [52.9391769,	-7.6398531],
+               [52.9942281,	-7.4757189],
+               [53.0426599,	-7.3258656],
+               [53.1674088,	-6.9202995],
+               [53.1443264,	-6.8470534],
+               [53.1062715,	-6.0733409],
+               [53.3242381,	-6.3857864],
+               [53.3288689,	-6.2392783],
+               [53.2650105,	-6.1237033],
+               [53.1970187,	-6.1308245],
+               [52.9825088,	-6.0602595],
+               [52.7950711,	-6.1748422],
+               [52.8581642,	-6.2179385],
+               [52.8824992,	-6.2431992],
+               [52.6757346,	-6.303057],
+               [52.5058482,	-6.5894459],
+               [52.5031391,	-6.5624348],
+               [52.3945888,	-6.9615096],
+               [52.2474998,	-7.1480493],
+               [52.0914087,	-7.6386446],
+               [51.9534288,	-7.8755096],
+               [51.9674951,	-8.2364881]
+             ]);
+  map2.addLayer(line);
+
+  var animatedMarker = L.animatedMarker(line.getLatLngs());
+  map2.addLayer(animatedMarker);
+  // add values to Leafet popup element
+  popup.setContent(content).openOn(map2);
+
+
+});
+
+
+lisgooldLayer.on('featureClicked', featureEvent => {
+            var popup2 = L.popup()
+            .setLatLng(featureEvent.latLng)
+            let content = '';
+              if (featureEvent.data.scene) {
+                 content += '<p>';
+                 content += featureEvent.data.scene;
+                 content += '</p><p>';
+                 content += featureEvent.data.landmark_not_on_gis;
+                 content += '</p><p>';
+                 content += featureEvent.data.location_address;
+               }
+
+  popup2.setContent(content).openOn(map2);
+
+
+});
+
+
+  // add basemap
+  this.baselayer.layer.addTo(map2);
+  // add carto layer
+  //client.getLeafletLayer().addTo(map2);
+  //console.log(cartoLayer);
+  //console.log(layers.cartoLayer);
+//lisgooldLayer.addTo(map2);
+//layerGroup.addTo(map2);
+//map2.addLayer(cartoLayer);
+//map2.addLayer(lisgooldLayer);
+
+  layers.cartoLayer.layer.addTo(map2);
+  layers.lisgooldLayer.layer.addTo(map2);
+  //layers.gLayer.layer.addTo(map2);
+
+  return map2;
+}
+});
+    </script>
+  </body>
+</html>
